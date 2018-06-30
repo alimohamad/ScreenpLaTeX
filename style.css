@@ -1,0 +1,44 @@
+body{
+    margin: 96px 96px 96px 144px; 
+}
+
+.base {
+    font-size: 16px;
+    font-family: 'Courier', monospace;
+}
+
+.slugline, .subheader, .action, .shot {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 576px;
+}
+
+.character {
+    margin-left: 192px;
+    margin-right: 0px;
+    width: 384px;
+    text-transform: uppercase;
+}
+
+.dialogue {
+    margin-left: 96px;
+    margin-right: 144px;
+    width: 336px;
+}
+
+.parenthetical {
+    margin-left: 144px;
+    margin-right: 192px;
+    width: 240px;
+}
+
+.transition {
+    margin-left: 284px;
+    margin-right: 0px;
+    width: 192px;
+}
+
+#textInput{
+    width: 50%;
+    height: 100%;
+}
