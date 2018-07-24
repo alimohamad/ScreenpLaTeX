@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function(){
             bodyScreenplay.write('</body>');
             bodyScreenplay.close();
             
-        }
+        }  
         
         inputBox.oninput = interpreter;   
     
@@ -177,7 +177,6 @@ function tagId(expression){
 function tagRender(element){
     
     var tag = element.tag;
-    console.log("RENDERING... " + tag);
     
     if(tag == "character"){ return "<p class = \"base character\">" + element.character + "</p> <p class = \"base dialogue\"> " + element.speech + "</p>"; }
     
