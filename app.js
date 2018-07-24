@@ -2,25 +2,43 @@ document.addEventListener("DOMContentLoaded", function(){
     
     var inputBox = document.getElementById("textInput");
 
-    function interpreter(){
-        
-        var text = "\n" + inputBox.value; //Value of textbox.
-        var elements = text.split("\n\\"); //Array of user inputted expressions.
-        var toBeRendered = []; //Stack for rendering React elements.
-        
-        for(i = elements.length-1; i >= 0; i--){
+    if(inputBox){  
+                
+        function interpreter(){
+
+            var text = "\n" + inputBox.value; //Value of textbox.
+            var elements = text.split("\n\\"); //Array of user inputted expressions.
+            var toBeRendered = []; //Stack for rendering React elements.
             
-            var expression = elements[i];
-            toBeRendered.push(tagId(expression));
-            console.log(toBeRendered);       
+            for(i = elements.length-1; i >= 0; i--){
+
+                var expression = elements[i];
+                toBeRendered.push(tagId(expression));
+
+            }
+            
+            console.log(toBeRendered);
+            
+            var bodyScreenplay = document.getElementById('rendering-window').contentWindow.document;
+                        
+            bodyScreenplay.open();
+            bodyScreenplay.write('<link rel="stylesheet" type="text/css" href="style.css"><body id = "body-screenplay"');
+            
+            while(toBeRendered.length != 0){
+                console.log("DEXTER");
+                if(toBeRendered[toBeRendered.length - 1] == undefined){toBeRendered.pop();}
+                bodyScreenplay.write(tagRender(toBeRendered.pop()));
+            }
+            bodyScreenplay.write('</body>');
+            bodyScreenplay.close();
+            
         }
-            
+        
+        inputBox.oninput = interpreter;   
+    
     }
 
-    inputBox.oninput = interpreter;   
-    
 })
-
 
 function tagId(expression){
     
@@ -40,11 +58,8 @@ function tagId(expression){
         var firstParenEnd = expression.indexOf(")");
         var firstParen = expression.substring(firstParenStart, firstParenEnd);
             
-        
-        
         if(tag == "c"){ //Character Tag.
             
-            //Object.
             var element = {
                 tag: "character",
                 character: firstParen,
@@ -55,7 +70,6 @@ function tagId(expression){
             
         }
         
-        
         //Second paren.
         var secondParenStart = firstParenEnd + 2;
         var secondParenEnd = firstBracket - 1;
@@ -63,11 +77,10 @@ function tagId(expression){
         
         if(tag == "cp"){ //Character-Parenthesized Tag (stage directions below character name.)    
             
-            //Object.
             var element = {
                 tag: "character-parenthesized",
                 character: firstParen,
-                note: secondParen,
+                pnote: secondParen,
                 speech: bracket
             }
                         
@@ -75,14 +88,12 @@ function tagId(expression){
             
         }
         
-        
         if(tag == "ce"){ //Character-Extension Tag (stage directions next to character name.)
             
-            //Object.
             var element = {
                 tag: "character-extension",
                 character: firstParen,
-                note: secondParen,
+                enote: secondParen,
                 speech: bracket
             }
                         
@@ -102,7 +113,6 @@ function tagId(expression){
             return element;
             
         }    
-
         
         //Resetting value of second paren, getting third paren.
         secondParenEnd = expression.lastIndexOf("(") - 1;
@@ -116,8 +126,8 @@ function tagId(expression){
             var element = {
                 tag: "character-extension-parenthesized",
                 character: firstParen,
-                pnote: secondParen,
-                enote: thirdParen,
+                enote: secondParen,
+                pnote: thirdParen,
                 speech: bracket
             }
             
@@ -149,7 +159,6 @@ function tagId(expression){
             
             return element;
 
-            
         }
         
         if(tag == "subhead"){ //Subheader.
@@ -163,5 +172,27 @@ function tagId(expression){
             
         }           
     }   
+}
 
+function tagRender(element){
+    
+    var tag = element.tag;
+    console.log("RENDERING... " + tag);
+    
+    if(tag == "character"){ return "<p class = \"base character\">" + element.character + "</p> <p class = \"base dialogue\"> " + element.speech + "</p>"; }
+    
+    if(tag == "character-extension"){ return '<p class = \"base character\">' + element.character + '(' + element.enote + ')</p> <p class = \"base dialogue\">' + element.speech + '</p>'; }
+    
+    if(tag == "character-parenthesized"){ return "<p class = \"base character\">" + element.character + "</p> <p class = \"base parenthetical\"> (" + element.pnote + ") </p> <p class = \"base dialogue\">" + element.speech + "</p>"; }
+    
+    if(tag == "character-extension-parenthesized"){ return "<p class = \"base character\">" + element.character +  "(" + element.enote + ")</p> <p class = \"base parenthetical\"> (" + element.pnote + ")</p> <p class = \"base dialogue\">" + element.speech + "</p>"; }
+    
+    if(tag == "slugline"){ return "<p class = \"base slugline\">" + element.intOrExt + "." + element.setting +  "-"  + element.timeOfDay + "</p>"; }
+    
+    if(tag == "subheader"){ return "<p class = \"base subheader\">" + element.setting + "</p>"; }
+    
+    if(tag == "action"){ return "<p class = \"base action\">" + element.action + "</p>"; }
+    
+    if(tag == "transition"){ return "<p class = \"base transition\">" + element.transition + "</p>"; }
+    
 }

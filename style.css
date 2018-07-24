@@ -1,5 +1,18 @@
-body{
+#body-screenplay{
     margin: 96px 96px 96px 144px; 
+}
+
+#rendering-window{ 
+    position : absolute;
+    top      : 0;
+    right    : 0;
+    height   : 100%;
+    width    : 50%;
+}
+
+#textInput{
+    width: 50%;
+    height: 100%;
 }
 
 .base {
@@ -36,9 +49,7 @@ body{
     margin-left: 284px;
     margin-right: 0px;
     width: 192px;
+    text-transform: uppercase;
+
 }
 
-#textInput{
-    width: 50%;
-    height: 100%;
-}
