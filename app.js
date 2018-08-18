@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded", function(){
             while(toBeRendered.length != 0){
                 console.log("DEXTER");
                 if(toBeRendered[toBeRendered.length - 1] == undefined){toBeRendered.pop();}
-                bodyScreenplay.write(tagRender(toBeRendered.pop()));
+                bodyScreenplay.write(tagRender(toBeRendered.pop()) + "<br>");
             }
+            
             bodyScreenplay.write('</body>');
             bodyScreenplay.close();
             
@@ -192,6 +193,6 @@ function tagRender(element){
     
     if(tag == "action"){ return "<p class = \"base action\">" + element.action + "</p>"; }
     
-    if(tag == "transition"){ return "<p class = \"base transition\">" + element.transition + "</p>"; }
+    if(tag == "transition"){ return "<p class = \"base transition\">" + element.transition + ":</p>"; }
     
 }
