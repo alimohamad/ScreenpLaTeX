@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(){
             var bodyScreenplay = document.getElementById('rendering-window').contentWindow.document;
                         
             bodyScreenplay.open();
-            bodyScreenplay.write('<link rel="stylesheet" type="text/css" href="style.css"><body id = "body-screenplay"');
+            bodyScreenplay.write('<link rel="stylesheet" type="text/css" href="style.css"><body id = "body-screenplay">');
             
             while(toBeRendered.length != 0){
                 console.log("DEXTER");

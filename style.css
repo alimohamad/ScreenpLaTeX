@@ -3,13 +3,9 @@ header{
     padding: 2%;
 }
 
-#body-screenplay{
-    margin: 96px 96px 96px 144px; 
-}
-
 #rendering-window{ 
-    position : absolute;
-    height   : 100%;
+    position: absolute;
+    height: 100%;
     width: 90%;
 }
 
@@ -17,6 +13,10 @@ header{
     height: 100%;
     width: 90%;
     margin-left: 2.5%;
+}
+
+#body-screenplay{
+    margin: 96px 96px 96px 144px; 
 }
 
 .base {
